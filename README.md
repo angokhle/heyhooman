@@ -4,7 +4,8 @@ An 8-question survey for Chennai dog parents, served at **https://heyhooman.in**
 
 | File | What it is |
 |---|---|
-| `index.html` | The survey page. The campaign image is built in, so this one file is the whole page. |
+| `index.html` | The survey page. |
+| `photos/` | The five background photos: `hero.jpg`, `run.jpg`, `sniff.jpg`, `splash.jpg`, `rest.jpg`. To change one, replace the file with the same name. Landscape, dog in the left half, about 1600 px wide. |
 | `apps-script/Code.gs` | The script that saves each response to your Google Sheet. |
 | `og-image.jpg` | The picture WhatsApp and Instagram show when the link is shared. |
 | `campaign.webp` | The campaign creative, for posting on social media. |
