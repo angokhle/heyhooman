@@ -1,4 +1,6 @@
 /**
+ * @OnlyCurrentDoc  (asks Google for access to this one sheet only, not all your files)
+ *
  * Hey Hooman survey: receives answers from heyhooman.in and saves each one
  * as a row in the "Responses" tab of the Google Sheet this script belongs to.
  *
