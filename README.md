@@ -59,15 +59,15 @@ Use a different link for each channel so the sheet's **Source** column shows whe
 
 ## 5. See the results at heyhooman.in/results
 
-A private results page with the headline numbers for the Illalur decision, a chart for every question, and breakdowns by area, channel and the places people already use. It never shows phone numbers or emails, and it asks for a results key.
+A private results page with the headline numbers for the Illalur decision, a chart for every question, and breakdowns by area, channel and the places people already use. It never shows phone numbers or emails, and it asks for a password.
 
 One-time setup in the Apps Script editor:
 
 1. Replace everything in `Code.gs` with the latest `apps-script/Code.gs` from this repo and **save**.
-2. Click the **gear icon (Project Settings)** on the left, scroll to **Script Properties**, click **Add script property**, enter **Property** `RESULTS_KEY` and a **Value** of your choosing (your results key), then **Save script properties**.
+2. Click the **gear icon (Project Settings)** on the left, scroll to **Script Properties**, click **Add script property**, enter **Property** `RESULTS_KEY` and a **Value** of your choosing (this is the password), then **Save script properties**.
 3. **Deploy → Manage deployments → pencil (Edit) → Version: New version → Deploy.** The web address stays the same.
 
-Then open **heyhooman.in/results** and enter the key. Your browser remembers it. To share with your team, send them the key, or the link `https://heyhooman.in/results/#key=YOUR-KEY`.
+Then open **heyhooman.in/results** and enter the password. Your browser remembers it until you click **Log out on this device**. To share with your team, send them the password, or the link `https://heyhooman.in/results/#key=YOUR-PASSWORD`. To change the password, edit `RESULTS_KEY` in Script Properties. No redeploy is needed.
 
 ## What lands in the sheet
 

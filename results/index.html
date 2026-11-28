@@ -84,7 +84,7 @@ th.n{text-align:right}
 <div class="wrap">
   <header>
     <div class="brand">Hey hooman!<span>Survey results</span></div>
-    <button class="linkbtn" id="forget" hidden>Forget key on this device</button>
+    <button class="linkbtn" id="forget" hidden>Log out on this device</button>
   </header>
   <div id="app"></div>
 </div>
@@ -139,17 +139,17 @@ const store = {
 /* ---------- key screen ---------- */
 function showGate(message = '') {
   forgetBtn.hidden = true;
-  const input = el('input', {type: 'password', id: 'key', autocomplete: 'current-password', placeholder: 'Results key', 'aria-label': 'Results key'});
+  const input = el('input', {type: 'password', id: 'key', autocomplete: 'current-password', placeholder: 'Password', 'aria-label': 'Password'});
   const msg = el('div', {class: 'msg', role: 'alert', text: message});
   const btn = el('button', {class: 'primary', type: 'submit', text: 'Show results'});
   const form = el('form', {class: 'gate', onsubmit: async e => {
     e.preventDefault();
-    if (!input.value.trim()) { msg.textContent = 'Please enter the key.'; return; }
+    if (!input.value.trim()) { msg.textContent = 'Please enter the password.'; return; }
     btn.disabled = true; btn.textContent = 'Checking…';
     key = input.value.trim();
     const err = await load();
     if (err) { btn.disabled = false; btn.textContent = 'Show results'; msg.textContent = err; key = ''; }
-  }}, el('h1', {text: 'Survey results'}), el('p', {text: 'Enter the results key to see how Chennai’s dog parents answered. Phone numbers and emails are never shown here.'}), input, btn, msg);
+  }}, el('h1', {text: 'Survey results'}), el('p', {text: 'Enter the password to see how Chennai’s dog parents answered. Phone numbers and emails are never shown here.'}), input, btn, msg);
   app.replaceChildren(form);
   input.focus();
 }
@@ -159,7 +159,7 @@ async function load() {
   try {
     const res = await fetch(`${SURVEY_ENDPOINT}?view=summary&key=${encodeURIComponent(key)}&t=${Date.now()}`);
     const out = await res.json();
-    if (!out.ok) { store.clear(); return 'That key didn’t work. Check it and try again.'; }
+    if (!out.ok) { store.clear(); return 'That password didn’t work. Check it and try again.'; }
     if (!Array.isArray(out.rows)) return 'The sheet’s script needs the latest update before results can show. See the README.';
     rows = out.rows; fetchedAt = new Date();
     store.set(key);
@@ -318,7 +318,7 @@ function hideTip() { tip.style.display = 'none'; }
 
 forgetBtn.onclick = () => { store.clear(); key = ''; rows = []; showGate(); };
 
-/* Start: a key in the link (#key=...) or one saved on this device opens the results straight away. */
+/* Start: a password in the link (#key=...) or one saved on this device opens the results straight away. */
 async function start() {
   const fromHash = new URLSearchParams(location.hash.slice(1)).get('key');
   if (fromHash) history.replaceState(null, '', location.pathname); // keep the key out of the address bar
