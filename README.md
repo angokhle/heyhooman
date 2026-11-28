@@ -57,6 +57,18 @@ Use a different link for each channel so the sheet's **Source** column shows whe
 - WhatsApp: `https://heyhooman.in/?src=whatsapp`
 - Instagram: `https://heyhooman.in/?src=instagram`
 
+## 5. See the results at heyhooman.in/results
+
+A private results page with the headline numbers for the Illalur decision, a chart for every question, and breakdowns by area, channel and the places people already use. It never shows phone numbers or emails, and it asks for a results key.
+
+One-time setup in the Apps Script editor:
+
+1. Replace everything in `Code.gs` with the latest `apps-script/Code.gs` from this repo and **save**.
+2. Click the **gear icon (Project Settings)** on the left, scroll to **Script Properties**, click **Add script property**, enter **Property** `RESULTS_KEY` and a **Value** of your choosing (your results key), then **Save script properties**.
+3. **Deploy → Manage deployments → pencil (Edit) → Version: New version → Deploy.** The web address stays the same.
+
+Then open **heyhooman.in/results** and enter the key. Your browser remembers it. To share with your team, send them the key, or the link `https://heyhooman.in/results/#key=YOUR-KEY`.
+
 ## What lands in the sheet
 
 One row per response: time, source, the answer to each question, the place they named (if any), phone, email, whether they agreed to be contacted, and how many seconds they took. Anything under about 10 seconds is probably a bot or a mis-tap, so filter those out before you count.
