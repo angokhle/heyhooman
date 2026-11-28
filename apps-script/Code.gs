@@ -72,9 +72,32 @@ function doPost(e) {
   }
 }
 
-// Opening the web address in a browser shows this, so you can check it is live.
-function doGet() {
+// Opening the web address in a browser shows a "running" message, so you can check it is live.
+// The results page (heyhooman.in/results) asks for ?view=summary&key=... and gets the answers back,
+// but only with the right key, and never with phone numbers or emails.
+// Set the key in Project Settings > Script Properties as RESULTS_KEY.
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  if (p.view === 'summary') {
+    const key = PropertiesService.getScriptProperties().getProperty('RESULTS_KEY');
+    if (!key || String(p.key || '') !== key) return reply_({ ok: false, error: 'wrong key' });
+    return reply_({ ok: true, rows: summaryRows_() });
+  }
   return reply_({ ok: true, message: 'Hey Hooman survey endpoint is running.' });
+}
+
+function summaryRows_() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  if (!sheet || sheet.getLastRow() < 2) return [];
+  const values = sheet.getRange(2, 1, sheet.getLastRow() - 1, HEADERS.length).getValues();
+  return values.map(r => ({
+    at: Object.prototype.toString.call(r[0]) === '[object Date]' ? r[0].toISOString() : String(r[0]),
+    source: String(r[1] || ''),
+    q1: String(r[2] || ''), q2: String(r[3] || ''), q3: String(r[4] || ''), place: String(r[5] || ''),
+    q4: String(r[6] || ''), q5: String(r[7] || ''), q6: String(r[8] || ''), q7: String(r[9] || ''),
+    signedUp: Boolean(r[10] || r[11]) && r[12] === 'Yes',
+    seconds: r[13] === '' ? null : Number(r[13]),
+  }));
 }
 
 function sheet_() {
